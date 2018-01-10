@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void run() {
                     super.run();
-                    String str_url="http://rate.bot.com.tw/xrt?Lang=zh-TW";
+                    String str_url="https://www.mobile01.com/rss/news.xml";
                     URL url=null;
                     try {
                         url=new URL((str_url));
@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                         String str1=sb.toString();//把這個大字串物件轉成字串丟進str字串
                        // Log.d("NET","GGGG"+str1+"GGGGG");//以Log顯示這個字串
 
+/*改讀XML練習
                         int index1=str1.indexOf("日圓 (JPY)");//從頭開始找第一個參數
                         int index2=str1.indexOf("本行現金賣出",index1);//從index1的位置開始往後找第一個參數
                         int index3=str1.indexOf(">",index2);
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         String data1=str1.substring(index3+1,index4);//從str1裡面擷取從第一個參數的位置到第二個參數的位置裡面的字串丟入data1
                         Log.d("NET", "index1:" + index1 + "index2:" + index2 + "index3:" + index3);
                         Log.d("NET", data1);
-
+*/
                         is.close();
                         isr.close();
                         br.close();
