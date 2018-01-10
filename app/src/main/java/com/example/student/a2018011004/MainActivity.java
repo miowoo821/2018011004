@@ -6,16 +6,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,17 +59,17 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         String str1=sb.toString();//把這個大字串物件轉成字串丟進str字串
-                       // Log.d("NET","GGGG"+str1+"GGGGG");//以Log顯示這個字串
+                       Log.d("NET","GGGG"+str1+"GGGGG");//以Log顯示這個字串
+                        final MyHandler dataHandler=new MyHandler();//
+                        //SAX是Simple API for XML的簡稱,在Android裡面提供對XML文件的解析接口方法
+                        //在 Android SDK 開發環境跟 XML 有關的方法有 SAX 與 DOM 兩種.
+                        SAXParserFactory spf=SAXParserFactory.newInstance();
+                        SAXParser sp=spf.newSAXParser();
+                        XMLReader xr=sp.getXMLReader();
+                        xr.setContentHandler(dataHandler);//將剛剛那個自己的的class NEW出來後放進去
+                        xr.parse(new InputSource(new StringReader(str1)));
 
-/*改讀XML練習
-                        int index1=str1.indexOf("日圓 (JPY)");//從頭開始找第一個參數
-                        int index2=str1.indexOf("本行現金賣出",index1);//從index1的位置開始往後找第一個參數
-                        int index3=str1.indexOf(">",index2);
-                        int index4=str1.indexOf("<",index3);
-                        String data1=str1.substring(index3+1,index4);//從str1裡面擷取從第一個參數的位置到第二個參數的位置裡面的字串丟入data1
-                        Log.d("NET", "index1:" + index1 + "index2:" + index2 + "index3:" + index3);
-                        Log.d("NET", data1);
-*/
+
                         is.close();
                         isr.close();
                         br.close();
@@ -70,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
 
                     } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (SAXException e) {
+                        e.printStackTrace();
+                    } catch (ParserConfigurationException e) {
                         e.printStackTrace();
                     }
 
