@@ -72,7 +72,7 @@ mobile01newitem item;
                 }
                 break;
             case "description":
-                isdescription=true;
+                isdescription=false;
                 break;
         }
 //    刪除    if(qName.equals("title")){           istitle=false;       }

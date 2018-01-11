@@ -1,23 +1,31 @@
 package com.example.student.a2018011004;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 /**
  * Created by Student on 2018/1/11.
  */
 
 public class Myadapter extends BaseAdapter {
-//    public Myadapter(Context context,){
-//
-//    }
+    Context context;
+    ArrayList<mobile01newitem> mylist;
+    public Myadapter(Context context, ArrayList<mobile01newitem>mylist){
+        this.context=context;
+        this.mylist=mylist;
+    }
     @Override
-    public int getCount() {
-        return 0;
+    //設定要回傳資料的筆數(總共會有幾格)
+    public int getCount() {//
+
+        return mylist.size();
     }
 
     @Override
@@ -32,7 +40,25 @@ public class Myadapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        return null;
+        ViewHolder viewholder;
+        if(view==null){
+            LayoutInflater inflater=LayoutInflater.from(context);
+            view=inflater.inflate(R.layout.item,null);//把自己做的LAYOUT丟進去剛剛新增的view中
+            viewholder=new ViewHolder();
+            viewholder.tv1=view.findViewById(R.id.textView4);
+            viewholder.tv2=view.findViewById(R.id.textView3);
+            viewholder.img1=view.findViewById(R.id.image);
+            view.setTag(viewholder);
+
+        }
+        else {
+            viewholder=(ViewHolder)view.getTag();
+        }
+        viewholder.tv2.setText(mylist.get(i).title);
+        viewholder.tv1.setText(mylist.get(i).description);
+
+
+        return view;
     }
 
     static class ViewHolder{

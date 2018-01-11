@@ -34,7 +34,7 @@ import javax.xml.parsers.SAXParserFactory;
 
 public class MainActivity extends AppCompatActivity {
     ListView lv;
-    ArrayAdapter<String> adapter;
+    Myadapter adapter;
     MyHandler dataHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
                                     for (int i=0;i<data.length;i++){
                                         data[i]=dataHandler.newitems.get(i).title;
                                     }
-                                      adapter=new ArrayAdapter<String>(MainActivity.this,
-                                            android.R.layout.simple_list_item_1,data);//dataHandler是上面從類別MyHandler所NEW出來的物件，再把這個物件裡面的title抓出來
+                                      adapter=new Myadapter(MainActivity.this,
+                                              dataHandler.newitems);//dataHandler是上面從類別MyHandler所NEW出來的物件，再把這個物件裡面的title抓出來
                                     lv.setAdapter(adapter);//把adapter丟進去lv
                                 }
                             });
