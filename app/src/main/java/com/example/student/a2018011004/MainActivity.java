@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent it=new Intent(MainActivity.this,Main2Activity.class);//新增一個intent物件，參數是作用頁面即前往頁面
-                it.putExtra("link",dataHandler.links.get(i));//根據i位置抓出dataHandler物件裡面links方法裡面的資料
+                it.putExtra("link",dataHandler.newitems.get(i).link);//根據i位置抓出dataHandler物件裡面links方法裡面的資料
                 startActivity(it);//啟動
             }
         });//監聽lv物件中項目的點擊
@@ -107,8 +107,12 @@ public class MainActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    adapter=new ArrayAdapter<String>(MainActivity.this,
-                                            android.R.layout.simple_list_item_1,dataHandler.titles);//dataHandler是上面從類別MyHandler所NEW出來的物件，再把這個物件裡面的title抓出來
+                                    String data []=new String[dataHandler.newitems.size()];
+                                    for (int i=0;i<data.length;i++){
+                                        data[i]=dataHandler.newitems.get(i).title;
+                                    }
+                                      adapter=new ArrayAdapter<String>(MainActivity.this,
+                                            android.R.layout.simple_list_item_1,data);//dataHandler是上面從類別MyHandler所NEW出來的物件，再把這個物件裡面的title抓出來
                                     lv.setAdapter(adapter);//把adapter丟進去lv
                                 }
                             });
