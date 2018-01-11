@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context="com.example.student.a2018011004.Main2Activity">
 
-    <ListView
-        android:id="@+id/listeview"
+    <WebView
+        android:id="@+id/webview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"

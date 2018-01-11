@@ -1,5 +1,6 @@
 package com.example.student.a2018011004;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -33,12 +35,23 @@ import javax.xml.parsers.SAXParserFactory;
 public class MainActivity extends AppCompatActivity {
     ListView lv;
     ArrayAdapter<String> adapter;
-
+    MyHandler dataHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lv=(ListView)findViewById(R.id.listView);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent it=new Intent(MainActivity.this,Main2Activity.class);//新增一個intent物件，參數是作用頁面即前往頁面
+                it.putExtra("link",dataHandler.links.get(i));//根據i位置抓出dataHandler物件裡面links方法裡面的資料
+                startActivity(it);
+            }
+        });//監聽lv物件中項目的點擊
+
+
+
     }
 
     @Override
@@ -77,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
 
                             String str1=sb.toString();//把這個大字串物件轉成字串丟進str字串
                             Log.d("NET","GGGG"+str1+"GGGGG");//以Log顯示這個字串
-                            final MyHandler dataHandler=new MyHandler();//
+                            //final MyHandler dataHandler=new MyHandler();//要給其他人用藥放到最上面，變成全區
+                            dataHandler=new MyHandler();
                             //SAX是Simple API for XML的簡稱,在Android裡面提供對XML文件的解析接口方法
                             //在 Android SDK 開發環境跟 XML 有關的方法有 SAX 與 DOM 兩種.
                             SAXParserFactory spf=SAXParserFactory.newInstance();

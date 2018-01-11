@@ -15,8 +15,11 @@ import java.util.ArrayList;
 public class MyHandler extends DefaultHandler{
     boolean istitle=false;
     boolean isitem=false;
-public ArrayList<String> titles=new ArrayList<String>();
+    boolean islink=false;
+    StringBuilder linkSB=new StringBuilder();
 
+public ArrayList<String> titles=new ArrayList<String>();
+public ArrayList<String> links=new ArrayList<>();
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -27,6 +30,11 @@ public ArrayList<String> titles=new ArrayList<String>();
         if(qName.equals("item")){
             isitem=true;
         }
+
+        if (qName.equals("link")){
+            islink=true;
+        }
+
     }
 
     @Override
@@ -38,6 +46,13 @@ public ArrayList<String> titles=new ArrayList<String>();
         if(qName.equals("item")){
             isitem=false;
         }
+        if(qName.equals("link")){
+            islink=false;
+            if(isitem){
+            links.add(linkSB.toString());
+            linkSB=new StringBuilder();//清除linkSB的內容
+            }
+        }
     }
 
     @Override
@@ -47,5 +62,11 @@ public ArrayList<String> titles=new ArrayList<String>();
             Log.d("NET",new String(ch,start,length));
             titles.add(new String(ch,start,length));
         }
+        if (islink && isitem){
+            Log.d("NET",new String(ch,start,length));
+            linkSB.append(new String(ch,start,length));
+        }
+
+
     }
 }
