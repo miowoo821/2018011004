@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Intent it=new Intent(MainActivity.this,Main2Activity.class);//新增一個intent物件，參數是作用頁面即前往頁面
                 it.putExtra("link",dataHandler.links.get(i));//根據i位置抓出dataHandler物件裡面links方法裡面的資料
-                startActivity(it);
+                startActivity(it);//啟動
             }
         });//監聽lv物件中項目的點擊
 

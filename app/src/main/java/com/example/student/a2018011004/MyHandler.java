@@ -15,11 +15,11 @@ import java.util.ArrayList;
 public class MyHandler extends DefaultHandler{
     boolean istitle=false;
     boolean isitem=false;
-    boolean islink=false;
-    StringBuilder linkSB=new StringBuilder();
+    boolean islink=false;//準備抓連結
+    StringBuilder linkSB=new StringBuilder();//弄一個大字串物件給連結存放用
 
 public ArrayList<String> titles=new ArrayList<String>();
-public ArrayList<String> links=new ArrayList<>();
+public ArrayList<String> links=new ArrayList<>();//弄一個陣列物件給連結存放用
 
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -48,7 +48,7 @@ public ArrayList<String> links=new ArrayList<>();
         }
         if(qName.equals("link")){
             islink=false;
-            if(isitem){
+            if(isitem){//在item等於true(原始碼有item標籤)的時候才執行放入link的動作
             links.add(linkSB.toString());
             linkSB=new StringBuilder();//清除linkSB的內容
             }
