@@ -73,6 +73,7 @@ mobile01newitem item;
                 break;
             case "description":
                 isdescription=false;
+
                 break;
         }
 //    刪除    if(qName.equals("title")){           istitle=false;       }
@@ -107,7 +108,10 @@ mobile01newitem item;
         }
         if (isdescription && isitem){
             Log.d("NET",new String(ch,start,length));
-            item.description=new String(ch,start,length);
+            String str=new String(ch,start,length);
+
+            str=str.replaceAll("<img.*/>","");
+            item.description= str;
         }
 
     }
