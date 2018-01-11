@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -19,6 +21,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.parsers.ParserConfigurationException;
@@ -26,11 +29,14 @@ import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
 public class MainActivity extends AppCompatActivity {
+    ListView lv;
+    ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        lv=(ListView)findViewById(R.id.listView);
     }
 
     public void click1(View v){
@@ -69,10 +75,19 @@ public class MainActivity extends AppCompatActivity {
                         xr.setContentHandler(dataHandler);//將剛剛那個自己的的class NEW出來後放進去
                         xr.parse(new InputSource(new StringReader(str1)));
 
-
                         is.close();
                         isr.close();
                         br.close();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter=new ArrayAdapter<String>(MainActivity.this,
+                                        android.R.layout.simple_list_item_1,dataHandler.titles);//dataHandler是上面從類別MyHandler所NEW出來的物件，再把這個物件裡面的title抓出來
+                                lv.setAdapter(adapter);//把adapter丟進去lv
+                            }
+                        });
+
 
                     } catch (MalformedURLException e) {
                         e.printStackTrace();
