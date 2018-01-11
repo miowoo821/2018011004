@@ -23,7 +23,9 @@ public class MyHandler extends DefaultHandler{
     boolean isdescription=false;
     StringBuilder linkSB=new StringBuilder();//弄一個大字串物件給連結存放用,不能像title直接抓，因為會抓到沒有item的連結，title也會，但用isitem處理，兩個方法疑似都行
    // StringBuilder descriptionSB=new StringBuilder();刪除
-
+   //--------------------------------------------------------------------------------------------------
+   StringBuilder descSB = new StringBuilder();
+    //--------------------------------------------------------------------------------------------------
 public ArrayList<mobile01newitem> newitems=new ArrayList<>();
 mobile01newitem item;
 //public ArrayList<String> links=new ArrayList<>();//弄一個陣列物件給連結存放用 刪除
@@ -47,6 +49,9 @@ mobile01newitem item;
                 break;
             case "description":
                 isdescription=true;
+                //--------------------------------------------------------------------------------------------------
+                descSB = new StringBuilder();
+                //--------------------------------------------------------------------------------------------------
                 break;
         }
 
@@ -75,7 +80,25 @@ mobile01newitem item;
                 break;
             case "description":
                 isdescription=false;
-
+                //--------------------------------------------------------------------------------------------------
+                if (isitem)
+                {
+                    String str = descSB.toString();
+                    Log.d("NET", "end Element str:" + str);
+                    Pattern pattern = Pattern.compile("https.*jpg");
+                    Matcher m = pattern.matcher(str);
+                    String imgurl = "";
+                    if (m.find())
+                    {
+                        imgurl = m.group(0);
+                    }
+                    str = str.replaceAll("<img.*/>", "");
+                    item.description = str;
+                    item.imgurl = imgurl;
+                    Log.d("NET", "In Handler: Item.desc:" + item.description);
+                    Log.d("NET", "In Handler: Item.imgurl:" + item.imgurl);
+                }
+                //--------------------------------------------------------------------------------------------------
                 break;
         }
 //    刪除    if(qName.equals("title")){           istitle=false;       }
