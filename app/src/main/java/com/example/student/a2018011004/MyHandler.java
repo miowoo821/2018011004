@@ -9,6 +9,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by Student on 2018/1/10.
@@ -107,11 +109,21 @@ mobile01newitem item;
             linkSB.append(new String(ch,start,length));
         }
         if (isdescription && isitem){
-            Log.d("NET",new String(ch,start,length));
+            Log.d("TEST",new String(ch,start,length));
+
             String str=new String(ch,start,length);
+
+            Pattern pattern=Pattern.compile("https.*jpg");//找到https，jpg結尾的字串
+            Matcher m=pattern.matcher(str);
+            String imgurl="";//新增準備要來放剛剛抓到的imgurl字串
+            if (m.find()){
+                imgurl=m.group();
+            }
 
             str=str.replaceAll("<img.*/>","");
             item.description= str;
+            item.imgurl=imgurl;
+            Log.d("NET",imgurl);
         }
 
     }

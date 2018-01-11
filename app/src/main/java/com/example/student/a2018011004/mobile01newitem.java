@@ -9,5 +9,6 @@ public class mobile01newitem {
     public String link;
     public String url;
     public String description;
+    public String imgurl;
 
 }
