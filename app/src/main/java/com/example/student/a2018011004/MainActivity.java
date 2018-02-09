@@ -32,7 +32,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity    extends AppCompatActivity {
     ListView lv;
     Myadapter adapter;
     MyHandler dataHandler;

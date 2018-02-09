@@ -70,6 +70,7 @@ mobile01newitem item;
             case "item":
                 isitem=false;
                 newitems.add(item);//把剛剛新增的物件丟進去
+                Log.d("NET","imgurl:"+item.imgurl);
                 break;
             case "link":
                 islink=false;
